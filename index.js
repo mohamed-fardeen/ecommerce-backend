@@ -9,7 +9,7 @@ const { logoutRouter } = require("./src/routes/user/logout.js");
 const ordersRouter = require("./src/routes/orders/orders.js");
 const { userUpdateRouter } = require("./src/routes/user/updateUser.js");
 const mongoose = require("mongoose");
-require("dotenv/config");
+require("dotenv").config();
 const Users = require("./src/database/schemas/userSchema.js");
 const jwt = require("jsonwebtoken");
 const { cartRouter } = require("./src/routes/cart/cart.js");
@@ -47,6 +47,17 @@ mongoose
   .connect(process.env.DB_URI)
   .then(() => console.log(`Connected to main DB`))
   .catch((err) => console.log(err));
+
+// Create connection for location database if needed
+if (process.env.DB_URI_LOCATION && process.env.DB_URI_LOCATION !== process.env.DB_URI) {
+  const locationDbConnection = mongoose.createConnection(process.env.DB_URI_LOCATION);
+  locationDbConnection.on('connected', () => {
+    console.log(`Connected to location DB`);
+  });
+  locationDbConnection.on('error', (err) => {
+    console.log('Location DB connection error:', err);
+  });
+}
 
 app.get("/", (req, res) => {
   const token = req.cookies.token;
