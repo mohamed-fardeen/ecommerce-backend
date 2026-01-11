@@ -9,7 +9,6 @@ const app = express();
 // CORS middleware - MUST be before routes
 app.use(cors({
   origin: [
-    "http://localhost:5173",
     "https://ecommerce-frontend-a2kn.onrender.com"
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
