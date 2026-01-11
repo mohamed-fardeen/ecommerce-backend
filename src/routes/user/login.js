@@ -14,7 +14,9 @@ loginRouter.post("/auth/login", async (req, res) => {
   const token = createSecretToken(user._id);
   res.cookie("token", token, {
     withCredentials: true,
-    httpOnly: false,
+    httpOnly: true,
+    secure: true,
+    sameSite: 'none'
   });
   res.sendStatus(200);
 });
