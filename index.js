@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
@@ -9,7 +11,6 @@ const { logoutRouter } = require("./src/routes/user/logout.js");
 const ordersRouter = require("./src/routes/orders/orders.js");
 const { userUpdateRouter } = require("./src/routes/user/updateUser.js");
 const mongoose = require("mongoose");
-require("dotenv").config();
 const Users = require("./src/database/schemas/userSchema.js");
 const jwt = require("jsonwebtoken");
 const { cartRouter } = require("./src/routes/cart/cart.js");
