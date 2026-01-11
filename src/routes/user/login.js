@@ -18,7 +18,15 @@ loginRouter.post("/auth/login", async (req, res) => {
     secure: process.env.NODE_ENV === "production",
     sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax'
   });
-  res.sendStatus(200);
+  res.status(200).json({
+    success: true,
+    user: {
+      id: user._id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email
+    }
+  });
 });
 
 module.exports = { loginRouter };
