@@ -22,7 +22,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://ecommerce-frontend-a2kn.onrender.com",
+      "https://ecommerce-frontend-a2kn.onrender.com"
     ],
     methods: ["GET", "POST", "PUT"],
     credentials: true,
