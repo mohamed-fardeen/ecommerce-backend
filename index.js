@@ -3,6 +3,27 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+
+const app = express();
+
+// CORS middleware - MUST be before routes
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://ecommerce-frontend-a2kn.onrender.com"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+}));
+
+// Handle preflight requests
+app.options("*", cors());
+
+// Other middleware
+app.use(express.json());
+app.use(cookieParser());
+
+// Routes
 const productRouter = require("./src/routes/products/products.js");
 const categoriesRouter = require("./src/routes/categories/categories.js");
 const { signupRouter } = require("./src/routes/user/signin.js");
@@ -16,21 +37,6 @@ const jwt = require("jsonwebtoken");
 const { cartRouter } = require("./src/routes/cart/cart.js");
 const { deliveryLocationRouter } = require("./src/routes/deliveryLocation/deliveryLocation.js");
 const { locationRouter } = require("./src/routes/location/location.js");
-
-const app = express();
-
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173",
-      "https://ecommerce-frontend-a2kn.onrender.com"
-    ],
-    methods: ["GET", "POST", "PUT"],
-    credentials: true,
-  })
-);
-app.use(express.json());
-app.use(cookieParser());
 
 app.use(productRouter);
 app.use(categoriesRouter);
